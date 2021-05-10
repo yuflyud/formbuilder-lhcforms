@@ -701,7 +701,10 @@ fb.service('formBuilderService', ['$window', 'lodash', '$q', '$http', 'dataConst
             }
           };
           item.items.forEach(function(part) {
-            if(!!part.value) {
+            if(part.questionCode === 'type') {
+              ans.url = part.value.code === "variable" ? dataConstants.fhirVariableUrl : dataConstants.calculatedExpressionUrl;
+            }
+            if(!!part.value && part.questionCode !== 'type') {
               ans.valueExpression[part.questionCode] = part.value;
             }
           });
@@ -1591,12 +1594,17 @@ fb.service('formBuilderService', ['$window', 'lodash', '$q', '$http', 'dataConst
             var calFieldName = null;
             switch (ext.url) {
               case dataConstants.calculatedExpressionUrl:
-                calFieldName = '_calculationMethod';
-                var calMethod = thisService.getFormBuilderField(lfItem[dataConstants.INITIAL_FIELD_INDICES[calFieldName].category].items, calFieldName);
-                calFieldName = 'calculatedExpression';
-                thisService.updateCNECWE(calMethod, calFieldName);
-                var calExprField = thisService.getFormBuilderField(lfItem[dataConstants.INITIAL_FIELD_INDICES[calFieldName].category].items, calFieldName);
-                calExprField.value = ext.valueExpression.expression;
+                if(ext.valueExpression && ext.valueExpression.language.toLowerCase() === 'text/fhirpath') {
+                  varExtensions.push(ext);
+                }
+                else {
+                  calFieldName = '_calculationMethod';
+                  var calMethod = thisService.getFormBuilderField(lfItem[dataConstants.INITIAL_FIELD_INDICES[calFieldName].category].items, calFieldName);
+                  calFieldName = 'calculatedExpression';
+                  thisService.updateCNECWE(calMethod, calFieldName);
+                  var calExprField = thisService.getFormBuilderField(lfItem[dataConstants.INITIAL_FIELD_INDICES[calFieldName].category].items, calFieldName);
+                  calExprField.value = ext.valueExpression.expression;
+                }
                 break;
 
               case dataConstants.fhirVariableUrl:
@@ -1911,6 +1919,7 @@ fb.service('formBuilderService', ['$window', 'lodash', '$q', '$http', 'dataConst
           item.items[0].value = x.valueExpression.name;
           item.items[1].value = x.valueExpression.expression;
           item.items[2].value = x.valueExpression.description;
+          item.items[3].value = x.url === dataConstants.fhirVariableUrl ? { code: "variable", text: "Variable" } : { code: "calculated expression", text: "Calculated Expression" };
           aListItems.push(item);
         }
       });

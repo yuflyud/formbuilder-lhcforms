@@ -212,7 +212,7 @@ var answerLists = {
       "code": "maxInclusive"
     }
   ],
-  
+
   "restrictionName": [
     {
       "text": ">",
@@ -559,6 +559,16 @@ var answerLists = {
     {
       "code": "ms",
       "text": "milliseconds"
+    }
+  ],
+  "fhirVariableTypes": [
+    {
+      "code": "variable",
+      "text": "Variable"
+    },
+    {
+      "code": "calculated expression",
+      "text": "Calculated Expression"
     }
   ]
 };

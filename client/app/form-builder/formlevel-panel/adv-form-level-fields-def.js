@@ -428,7 +428,22 @@ var advFormLevelFieldsDef = {
           "codingInstructions": "A brief, natural language description of the condition that effectively communicates the intended semantics.<br/><b>FHIR type: string</b>",
           "codingInstructionsFormat": "html",
           "linkId": "/_fhirVariables/description"
-        }
+        },
+        {
+          "questionCode": "type",
+          "localQuestionCode": "code",
+          "question": "Type",
+          "dataType": "CNE",
+          "header": false,
+          "answers": "fhirVariableTypes",
+          "codingInstructions": "Answer is required: Variable | Calculated Expression.",
+          "codingInstructionsFormat": "html",
+          "defaultAnswer": {
+            "text": "Variable",
+            "code": "variable"
+          },
+          "linkId": "/_fhirVariables/type"
+        },
       ],
       "linkId": "/_fhirVariables"
     }

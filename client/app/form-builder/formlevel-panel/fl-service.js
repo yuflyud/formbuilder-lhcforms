@@ -1,5 +1,5 @@
 angular.module('formBuilder')
-  .service('flService', ['lodash', function(lodash){
+  .service('flService', ['dataConstants', 'lodash', function(dataConstants, lodash){
     var flService = this;
 
     /**
@@ -245,8 +245,13 @@ angular.module('formBuilder')
           if(importedFormLevelFieldsObj.extension) {
             ret = importedFormLevelFieldsObj.extension.reduce(function(acc, ext) {
               if(ext.url === LForms.FHIR.R4.SDC.fhirExtVariable) {
-                acc.push(ext.valueExpression);
+                acc.push(Object.assign({ type: 'variable' }, ext.valueExpression));
               }
+
+              if(ext.url === dataConstants.calculatedExpressionUrl) {
+                acc.push(Object.assign({ type: 'calculated expression' }, ext.valueExpression));
+              }
+
               return acc;
             }, []);
             ret = ret.length > 0 ? ret : null;
@@ -280,8 +285,8 @@ angular.module('formBuilder')
             lfFormData.extension = [];
           }
           lfFormData.extension.push({
-            url: 'http://hl7.org/fhir/StructureDefinition/variable',
-            valueExpression: vars[i]
+            url: vars[i].type === "variable" ? dataConstants.fhirVariableUrl : dataConstants.calculatedExpressionUrl,
+            valueExpression: lodash.omit(vars[i], ["type"])
           });
         }
 
