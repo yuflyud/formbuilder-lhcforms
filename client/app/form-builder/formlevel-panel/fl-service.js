@@ -252,6 +252,12 @@ angular.module('formBuilder')
             ret = ret.length > 0 ? ret : null;
           }
           break;
+        case "_structureMap":
+          if(importedFormLevelFieldsObj.extension) {
+            var structureMap = importedFormLevelFieldsObj.extension.find(function(ext) { return ext.url === "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap" });
+            ret = structureMap ? structureMap.valueCanonical : null;
+          }
+          break;
       }
       return ret;
     };
@@ -276,6 +282,19 @@ angular.module('formBuilder')
           lfFormData.extension.push({
             url: 'http://hl7.org/fhir/StructureDefinition/variable',
             valueExpression: vars[i]
+          });
+        }
+
+        // structureMap
+        var structureMap = lfFormData._structureMap;
+        delete lfFormData._structureMap;
+        if(structureMap) {
+          if(!lfFormData.extension) {
+            lfFormData.extension = [];
+          }
+          lfFormData.extension.push({
+            url: "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap",
+            valueCanonical: structureMap
           });
         }
       }

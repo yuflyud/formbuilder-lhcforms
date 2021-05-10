@@ -224,6 +224,15 @@ var basicFormLevelFieldsDef = {
         }
       ],
       "linkId": "/effectivePeriod"
+    },
+    {
+      "questionCode": "_structureMap",
+      "localQuestionCode": "uri",
+      "question": "Structure Map",
+      "dataType": "URL",
+      "codingInstructionsFormat": "html",
+      "header": false,
+      "linkId": "/_structureMap"
     }
   ],
   "lformsVersion": "24.0.0"
