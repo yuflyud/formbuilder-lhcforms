@@ -88,7 +88,8 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "source ./bashrc.formbuilder && node ./app.js -c ./formbuilder.conf.js",
+    "start": "bower install; grunt template; grunt serve",
+    "serve": "source ./bashrc.formbuilder && node ./app.js -c ./formbuilder.conf.js",
     "copy-npm-scripts": "cp node_modules/lforms-updater/browser/updater.js client/app/lforms-updater.js",
     "clean-install": "rm -rf ./client/bower_components && source ./bashrc.formbuilder && npm ci && source ./bashrc.formbuilder && bower install && npm run copy-npm-scripts",
     "clean-test": "npm run clean-install && npm test",
