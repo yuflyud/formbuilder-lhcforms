@@ -5,7 +5,7 @@
 // All configurations will extend these options
 // ============================================
 let all = {
-  env: process.env.NODE_ENV || 'development',
+  env: 'development',
   
   // Root path of server
   root: __dirname,
