@@ -89,13 +89,13 @@
   },
   "scripts": {
     "start": "bower install; grunt template; grunt serve",
-    "serve": "source ./bashrc.formbuilder && node ./app.js -c ./formbuilder.conf.js",
+    "serve": "node ./app.js -c ./formbuilder.conf.js",
     "copy-npm-scripts": "cp node_modules/lforms-updater/browser/updater.js client/app/lforms-updater.js",
-    "clean-install": "rm -rf ./client/bower_components && source ./bashrc.formbuilder && npm ci && source ./bashrc.formbuilder && bower install && npm run copy-npm-scripts",
+    "clean-install": "rm -rf ./client/bower_components && npm ci && bower install && npm run copy-npm-scripts",
     "clean-test": "npm run clean-install && npm test",
-    "build": "source ./bashrc.formbuilder && grunt build",
+    "build": "grunt build",
     "clean-build": "npm run clean-install && npm run build",
-    "karma": "source ./bashrc.formbuilder && karma start ./karma.conf.js --single-run",
+    "karma": "karma start ./karma.conf.js --single-run",
     "test": "npm run karma && node ./node_modules/.bin/webdriver-manager update --versions.chrome  $(google-chrome --version |awk '{print $NF}') && grunt test"
   }
 }
