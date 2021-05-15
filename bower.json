@@ -68,6 +68,7 @@
     "karma-read-json": "^1.1.0"
   },
   "appPath": "client",
+  "directory": "client/bower_components",
   "resolutions": {
     "angular": "1.8.x",
     "angular-animate": "1.8.x",
